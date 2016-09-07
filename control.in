@@ -3,7 +3,7 @@ Version: @@VERSION@@-@@PKGRELEASE@@
 Section: perl
 Priority: optional
 Architecture: @@ARCH@@
-Depends: libpve-storage-perl, multipath-tools, sg3-utils
+Depends: libpve-storage-perl, multipath-tools
 Maintainer: Dmitry Petuhov <mityapetuhov@gmail.com>
 Description: Proxmox VE plugin for PS-series Dell storages.
  This package contains storage plugin to use PS-series Dell  SAN with Proxmox VE.
