@@ -11,7 +11,7 @@ DOCDIR=${PREFIX}/share/doc/${PACKAGE}
 
 export PERLDIR=${PREFIX}/share/perl5
 
-SOURCES=DEllPSPlugin.pm
+SOURCES=DellPSPlugin.pm
 
 ARCH=all
 GITVERSION:=$(shell cat .git/refs/heads/master)
