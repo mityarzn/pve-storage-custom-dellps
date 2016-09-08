@@ -170,11 +170,12 @@ sub multipath_enable {
     # Login to target. Will produce warning if already logged in. But that's safe.
     run_command(['/usr/bin/iscsiadm', '-m', 'node', '--targetname', $target, '--portal', $scfg->{'groupaddr'} .':3260', '--login']);
 
-    sleep 3;
+    sleep 1;
 
-    #force devmap reload to connect new device. Maybe not neede because of udev? Just wait for settle?
+    # wait udev to settle divices
+    run_command(['/sbin/udevadm', 'settle']);
+    #force devmap reload to connect new device.
     run_command(['/sbin/multipath', '-r']);
-#    run_command(['/sbin/udevadm', 'settle']);
 }
 
 sub multipath_disable {

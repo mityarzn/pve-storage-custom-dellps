@@ -1,3 +1,11 @@
+libpve-storage-custom-mpnetapp-perl (1.0-2) unstable; urgency=medium
+
+  * Fix Makefile
+  * remove unneded sg3-utils dependency
+  * Add snapshots processing
+
+ -- Dmitry Petuhov <mityapetuhov@gmail.com>  Tue, 06 Sep 2016 15:51:07 +0300
+
 libpve-storage-custom-mpnetapp-perl (1.0-1) unstable; urgency=medium
 
   * Initial release
