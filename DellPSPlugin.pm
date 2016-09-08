@@ -89,6 +89,7 @@ sub dell_create_snapshot {
     $cache->{telnet} = dell_connect($scfg) unless $cache->{telnet};
     my $tn = $cache->{telnet};
 
+    $tn->cmd("volume select $name snapshot create-now $snapname");
 }
 
 sub dell_delete_snapshot {
@@ -96,6 +97,7 @@ sub dell_delete_snapshot {
     $cache->{telnet} = dell_connect($scfg) unless $cache->{telnet};
     my $tn = $cache->{telnet};
 
+    $tn->cmd("volume select $name snapshot delete $snapname");
 }
 
 sub dell_rollback_snapshot {
@@ -103,6 +105,7 @@ sub dell_rollback_snapshot {
     $cache->{telnet} = dell_connect($scfg) unless $cache->{telnet};
     my $tn = $cache->{telnet};
 
+    $tn->cmd("volume select $name snapshot select $snapname restore");
 }
 
 sub dell_list_luns {
@@ -378,8 +381,9 @@ sub volume_resize {
 
 sub volume_snapshot {
     my ($class, $scfg, $storeid, $volname, $snap) = @_;
+    my $cache;
 
-    #TODO: Add LUN list here
+    dell_create_snapshot($scfg, $cache, $volname, $snap);
     return 1;
 }
 
@@ -387,7 +391,7 @@ sub volume_snapshot_rollback {
     my ($class, $scfg, $storeid, $volname, $snap) = @_;
     my $cache;
 
-    #TODO: Add LUN list here
+    dell_rollback_snapshot($scfg, $cache, $volname, $snap);
 
     #size could be changed here? Check for device changes.
     my $target = dell_get_lun_target($scfg, $cache, $volname) || die "Cannot get iscsi tagret name";
@@ -399,8 +403,9 @@ sub volume_snapshot_rollback {
 
 sub volume_snapshot_delete {
     my ($class, $scfg, $storeid, $volname, $snap) = @_;
+    my $cache;
 
-    #TODO: Add LUN list here
+    dell_delete_snapshot($scfg, $cache, $volname, $snap);
     return 1;
 }
 
