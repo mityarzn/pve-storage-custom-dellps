@@ -313,8 +313,6 @@ sub alloc_image {
 sub free_image {
     my ($class, $storeid, $scfg, $volname, $isBase) = @_;
 
-    my $wwn = $class->mp_get_wwn($scfg, $volname);
-
     dell_delete_lun($scfg, undef, $volname);
 }
 
