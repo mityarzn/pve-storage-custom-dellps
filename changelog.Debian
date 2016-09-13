@@ -1,3 +1,10 @@
+libpve-storage-custom-mpnetapp-perl (1.0-4) unstable; urgency=medium
+
+  * Disable debug output of telnet sessions to file
+  * Fix volume deletion (first set volume offline)
+  * Fix free_image (delete volumes in background).
+
+ -- Dmitry Petuhov <mityapetuhov@gmail.com>  Tue, 06 Sep 2016 15:51:07 +0300
 libpve-storage-custom-mpnetapp-perl (1.0-3) unstable; urgency=medium
 
   * Remove legacy mp_get_wwn() call

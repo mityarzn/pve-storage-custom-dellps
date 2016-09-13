@@ -313,7 +313,12 @@ sub alloc_image {
 sub free_image {
     my ($class, $storeid, $scfg, $volname, $isBase) = @_;
 
-    dell_delete_lun($scfg, undef, $volname);
+    # Will free it in background
+    return sub {
+        my $cache;
+        $class->multipath_disable($scfg, $cache, $volname);
+        dell_delete_lun($scfg, $cache, $volname);
+    };
 }
 
 sub list_images {
