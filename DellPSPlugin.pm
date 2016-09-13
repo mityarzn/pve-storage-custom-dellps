@@ -33,7 +33,6 @@ sub dell_connect {
     my ($scfg) = @_;
     my $obj = new Net::Telnet(
 	Host => $scfg->{adminaddr},
-	#Dump_log => "/tmp/dellplugin.log",
 	Input_log  => "/tmp/dell.log",
 	Output_log => "/tmp/dell.log",
     );
@@ -73,6 +72,7 @@ sub dell_delete_lun {
     $cache->{telnet} = dell_connect($scfg) unless $cache->{telnet};
     my $tn = $cache->{telnet};
 
+    $tn->cmd("volume select $name offline");
     $tn->cmd("volume delete $name");
 }
 
