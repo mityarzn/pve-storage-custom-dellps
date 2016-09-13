@@ -1,3 +1,11 @@
+libpve-storage-custom-mpnetapp-perl (1.0-3) unstable; urgency=medium
+
+  * Remove legacy mp_get_wwn() call
+  * Prepend "$storeid:" to volid in list_images()
+  * Bump to 1.0-3
+
+ -- Dmitry Petuhov <mityapetuhov@gmail.com>  Tue, 06 Sep 2016 15:51:07 +0300
+
 libpve-storage-custom-mpnetapp-perl (1.0-2) unstable; urgency=medium
 
   * Fix Makefile

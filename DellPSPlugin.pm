@@ -321,6 +321,10 @@ sub list_images {
 
     my $res = dell_list_luns($scfg, $cache, $vmid, $vollist);
 
+    foreach my $vol (@$res) {
+        $vol->{volid} = "$storeid:" . $vol->{volid};
+    }
+
     return $res;
 }
 
