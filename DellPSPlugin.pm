@@ -33,8 +33,8 @@ sub dell_connect {
     my ($scfg) = @_;
     my $obj = new Net::Telnet(
 	Host => $scfg->{adminaddr},
-	Input_log  => "/tmp/dell.log",
-	Output_log => "/tmp/dell.log",
+	#Input_log  => "/tmp/dell.log",
+	#Output_log => "/tmp/dell.log",
     );
 
     $obj->login($scfg->{login}, $scfg->{password});
