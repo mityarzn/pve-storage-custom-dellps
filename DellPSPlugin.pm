@@ -41,6 +41,7 @@ sub dell_connect {
     $obj->cmd('cli-settings events off');
     $obj->cmd('cli-settings formatoutput off');
     $obj->cmd('cli-settings confirmation off');
+    $obj->cmd('cli-settings displayinMB on');
     $obj->cmd('cli-settings idlelogout off');
     $obj->cmd('cli-settings paging off');
     $obj->cmd('cli-settings reprintBadInput off');
@@ -116,7 +117,7 @@ sub dell_list_luns {
 
     my @out = $tn->cmd('volume show');
     for my $line (@out) {
-	if ($line =~ /^(vm-(\d+)-disk-\d+)\s+(\d+)([GMT]B)/) {
+	if ($line =~ /^(vm-(\d+)-disk-\d+)\s+([\d\.]+)([GMT]B)/) {
             next if $vmid && $vmid != $2; # $vmid filter
             next if $vollist && !grep(/^$1$/,@$vollist); # $vollist filter
 	    my $mp = getmultiplier($4);
