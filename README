@@ -1,0 +1,44 @@
+    Proxmox VE plugin to deal with Dell Equallogic PS-series SAN.
+
+For this plugin, you need to set "uid_attribute ID_PATH" in multipatch.conf.
+To do it only for Dell SANs (if you are using also some other multipath
+SANs here), you may use per-device definition like this:
+
+----------------------------------------------------------------------
+devices {
+        device {
+                vendor          "EQLOGIC"
+                product         "100E-00"
+                uid_attribute   ID_PATH
+                path_checker    tur
+        }
+}
+----------------------------------------------------------------------
+
+PVE currently does not provide interface to add custom storage plugins,
+so you need to add it manually into /etc/pve/storage.cfg.
+
+Config section looks ilike that:
+----------------------------------------------------------------------
+dellps: dellstor
+        login somelogin
+        password somepassword
+        adminaddr X.X.X.X
+        groupaddr Y.Y.Y.Y
+        pool default
+        content images
+        shared 1
+----------------------------------------------------------------------
+
+Plugin currently does not sets any security settings to target storage.
+
+Info how to set up iSCSI multipath at system and open-iscsi levels, see
+https://linux.dell.com/files/whitepapers/iSCSI_Multipathing_in_Ubuntu_Server.pdf
+(but do not set node startup to automatic).
+
+Also, Debian multipath-tools currently have bug 
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=799781
+which will lead to long volumes activation times. To workaround it, comment-out
+(or delete) rule in /lib/udev/rules.d/60-multipath.rules WARNING: this way may
+be dangerous if you are using multipath boot.
+
