@@ -2,7 +2,7 @@ RELEASE=4.2
 
 VERSION=1.0
 PACKAGE=libpve-storage-custom-dellps-perl
-PKGREL=6
+PKGREL=7
 
 DESTDIR=
 PREFIX=/usr

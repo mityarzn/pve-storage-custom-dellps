@@ -166,7 +166,7 @@ sub multipath_enable {
     if (-e "/dev/disk/by-id/dm-uuid-mpath-ip-". $scfg->{'groupaddr'} .":3260-iscsi-$target-lun-0") {
 	# Rescan target for changes (e.g. resize)
 	run_command(['/usr/bin/iscsiadm', '-m', 'node', '--targetname', $target, '--portal', $scfg->{'groupaddr'} .':3260', '--rescan']);
-    else {
+    } else {
 	# Discover portal for new targets
 	run_command(['/usr/bin/iscsiadm', '-m', 'discovery', '--portal', $scfg->{'groupaddr'} .':3260', '--discover']);
 
