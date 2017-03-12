@@ -1,3 +1,9 @@
+libpve-storage-custom-mpnetapp-perl (1.0-7) unstable; urgency=medium
+
+  * Add target rescan on re-activating volume to fix resize
+
+ -- Dmitry Petuhov <mityapetuhov@gmail.com>  Sun, 12 Mar 2017 15:05:08 +0300
+
 libpve-storage-custom-mpnetapp-perl (1.0-6) unstable; urgency=medium
 
   * Depend on libpve-storage-perl >=4.0-58 (where plugin support appeared)

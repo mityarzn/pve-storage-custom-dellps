@@ -162,14 +162,17 @@ sub multipath_enable {
 
     my $target = dell_get_lun_target($scfg, $cache, $name) || die "Cannot get iscsi tagret name";
 
-    # Skip if device exists
-    return if -e "/dev/disk/by-id/dm-uuid-mpath-ip-". $scfg->{'groupaddr'} .":3260-iscsi-$target-lun-0";
+    # If device exists
+    if (-e "/dev/disk/by-id/dm-uuid-mpath-ip-". $scfg->{'groupaddr'} .":3260-iscsi-$target-lun-0") {
+	# Rescan target for changes (e.g. resize)
+	run_command(['/usr/bin/iscsiadm', '-m', 'node', '--targetname', $target, '--portal', $scfg->{'groupaddr'} .':3260', '--rescan']);
+    else {
+	# Discover portal for new targets
+	run_command(['/usr/bin/iscsiadm', '-m', 'discovery', '--portal', $scfg->{'groupaddr'} .':3260', '--discover']);
 
-    # Discover portal for new targets
-    run_command(['/usr/bin/iscsiadm', '-m', 'discovery', '--portal', $scfg->{'groupaddr'} .':3260', '--discover']);
-
-    # Login to target. Will produce warning if already logged in. But that's safe.
-    run_command(['/usr/bin/iscsiadm', '-m', 'node', '--targetname', $target, '--portal', $scfg->{'groupaddr'} .':3260', '--login']);
+	# Login to target. Will produce warning if already logged in. But that's safe.
+	run_command(['/usr/bin/iscsiadm', '-m', 'node', '--targetname', $target, '--portal', $scfg->{'groupaddr'} .':3260', '--login']);
+    }
 
     sleep 1;
 
